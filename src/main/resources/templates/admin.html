@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Page</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{css/admin.css}"/>
+</head>
+<body>
+    <h1>Admin Page</h1>
+
+    <script type="text/javascript" th:inline="javascript">
+        let rootPoint = [[${rootPoint}]];
+    </script>
+
+    <script>
+        function init() {
+            let ul = document.createElement("ul");
+            let li = document.createElement("li");
+            ul.appendChild(li);
+            li.appendChild(pointForm(rootPoint));
+            console.log(rootPoint);
+            fetchPoint("Yes", rootPoint.yes, li);
+            fetchPoint("No", rootPoint.no, li);
+            document.body.appendChild(ul);
+        }
+
+        function fetchPoint(type, point,li) {
+            let ul = document.createElement("ul");
+            let innerLi = document.createElement("li");
+            ul.appendChild(innerLi);
+            innerLi.appendChild(pointForm(point));
+            innerLi.appendChild(changePointType(point));
+            li.appendChild(ul);
+            if(point.yes) {
+                fetchPoint("Yes", point.yes, innerLi);
+                fetchPoint("No", point.no, innerLi);
+            }
+        }
+
+        function pointForm(point) {
+            let form = document.createElement('template');
+            form.innerHTML = `<form action="/admin/modify/${point.id}" method="post">
+                                <input name="title" type="text" value="${point.title}">
+                                <br/>
+                                <input type="submit" value="Save Title">
+                               </form>`.trim();
+            return form.content.firstChild;
+        }
+
+        function changePointType(point) {
+            let changePointTypeBtn = document.createElement('template');
+            let type = point.yes ? 'Question' : 'City';
+            changePointTypeBtn.innerHTML = ` <form action="/admin/modify/${point.id}/type" method="post">
+                                                <input type="submit" value="Change Type">
+                                                ${type}
+                                             </form>`.trim();
+            return changePointTypeBtn.content.firstChild;
+        }
+
+        window.onload = init();
+    </script>
+</body>
+</html>
