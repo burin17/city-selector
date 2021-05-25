@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -28,11 +31,19 @@ public class AdminController {
         return restTemplate.getForObject(allPointsUrl, Point.class);
     }
 
-    @PostMapping("/modify/{id}")
+    @PostMapping("/modify/{id}/ttl")
     public String modifyPointTitle(@PathVariable int id, @RequestParam String title,
                               @Value("${prolog.url.modify.title}") String modifyPointUrl) {
         restTemplate.postForObject(modifyPointUrl,
                 new Point(id, title), Point.class);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/modify/{id}/desc")
+    public String modifyPointDesc(@PathVariable int id, @RequestParam String desc,
+                                   @Value("${prolog.url.modify.desc}") String modifyPointUrl) {
+        restTemplate.postForObject(modifyPointUrl,
+                new Point(id, null, desc), Point.class);
         return "redirect:/admin";
     }
 

@@ -8,15 +8,19 @@
     <link rel="stylesheet" th:href="@{css/styles.css}"/>
 </head>
 <body>
-    <div class="three"><h1>City Selector Service</h1></div>
-    <p class="title" th:text="${currentPoint.getTitle()}"></p>
-    <div class="answerWrapper" th:if="${currentPoint.getType() == 'Question'}">
+<a th:href="@{/start}">Main page</a>
+<div class="three"><h1>City Selector Service</h1></div>
+<p class="title" th:text="${currentPoint.getTitle()}"></p>
+<div class="buttonWrapper" th:if="${currentPoint.getType() == 'Question'}">
         <form class="answerFormYes" th:action="@{/select/yes}" method="post">
             <input type="submit" value="Yes"/>
         </form>
         <form class="answerFormNo" th:action="@{/select/no}" method="post">
             <input type="submit" value="No"/>
         </form>
-    </div>
+</div>
+<form class="answerFormNo" th:action="@{/select/reset}" method="get">
+    <input type="submit" value="Start over"/>
+</form>
 </body>
 </html>

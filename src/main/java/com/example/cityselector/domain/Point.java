@@ -5,10 +5,17 @@ public class Point {
     private String title;
     private Point yes;
     private Point no;
+    private String desc;
 
     public Point(int id, String title) {
         this.id = id;
         this.title = title;
+    }
+
+    public Point(int id, String title, String desc) {
+        this.id = id;
+        this.title = title;
+        this.desc = desc;
     }
 
     public Point() {
@@ -46,12 +53,22 @@ public class Point {
         this.title = title;
     }
 
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     @Override
     public String toString() {
         return "Point{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", yes=" + yes +
                 ", no=" + no +
+                ", desc='" + desc + '\'' +
                 '}';
     }
 }

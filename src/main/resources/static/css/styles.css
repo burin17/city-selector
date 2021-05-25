@@ -68,7 +68,7 @@ input[type = submit] {
     cursor: pointer;
 }
 
-.answerWrapper {
+.buttonWrapper {
     display: flex;
     justify-content: center;
     gap: 200px;
